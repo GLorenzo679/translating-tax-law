@@ -1,0 +1,2 @@
+Total Samples,Min Input Length (nchar),Max Input Length (nchar),Min Metadata Length (nchar),Max Metadata Length (nchar),Min Output Length (nchar),Max Output Length (nchar),Mean Input Length (nchar),Mean Metadata Length (nchar),Mean Output Length (nchar)
+502,36,44211,0,11081,77,37583,1264.8924302788844,2509.9521912350597,700.9043824701196

@@ -1,0 +1,14 @@
+{
+    "sample_1": {
+        "input": "# Code de la construction et de l'habitation\n\n## Partie législative\n\n### Livre VIII : Aides personnelles au logement\n\n#### Titre II : Dispositions communes aux aides personnelles au logement\n\n##### Chapitre Ier : Principes généraux\n\n###### Section 2 : Règles de non-cumul\n\n####### Sous-section 1 : Aides personnelles au logement\n\n######## Article L821-3 | LEGIARTI000038814972\n\nLorsqu'un enfant est bénéficiaire, à titre personnel, de l'aide\npersonnelle au logement, il n'est pas pris en compte, comme enfant\nà charge, pour le bénéfice des prestations familiales.",
+        "output": "champ d'application PrestationsFamiliales:\nexception cas_base règle droit_ouvert de enfant sous condition\nenfant.bénéficie_titre_personnel_aide_personnelle_logement\nconséquence non rempli",
+        "metadata": {
+            "Enfant": "déclaration structure Enfant:\ndonnée identifiant contenu entier\ndonnée obligation_scolaire contenu SituationObligationScolaire\ndonnée rémuneration_mensuelle contenu argent\ndonnée date_de_naissance contenu date\ndonnée prise_en_charge contenu PriseEnCharge\ndonnée a_déjà_ouvert_droit_aux_allocations_familiales contenu booléen\ndonnée bénéficie_titre_personnel_aide_personnelle_logement contenu booléen\ndéclaration structure Enfant:\ndonnée identifiant contenu entier\ndonnée a_renoncé_à_la_succession contenu booléen\ndonnée est_représenté contenu booléen\ndonnée est_tenu_au_rapport_libéralité contenu booléen\n",
+            "PriseEnCharge": "déclaration énumération PriseEnCharge:\n-- GardeAlternéePartageAllocations\n-- GardeAlternéeAllocataireUnique\n-- EffectiveEtPermanente\n-- ServicesSociauxAllocationVerséeÀLaFamille\n-- ServicesSociauxAllocationVerséeAuxServicesSociaux\n",
+            "SituationObligationScolaire": "déclaration énumération SituationObligationScolaire:\n-- Avant\n-- Pendant\n-- Après\ndéclaration énumération SituationObligationScolaire:\n-- Avant\n-- Pendant\n-- Après\n",
+            "PrestationsFamiliales": "déclaration champ d'application PrestationsFamiliales:\nrésultat droit_ouvert condition dépend de enfant contenu Enfant\nrésultat conditions_hors_âge condition dépend de enfant contenu Enfant\ninterne plafond_l512_3_2 contenu argent\nrésultat âge_l512_3_2 contenu durée\nrésultat régime_outre_mer_l751_1 condition\nentrée date_courante contenu date\nentrée résidence contenu France.Collectivité\nsmic champ d'application Smic.Smic\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n",
+            "Smic": "déclaration champ d'application Smic:\nentrée date_courante contenu date\nentrée résidence contenu France.Collectivité\nrésultat brut_horaire contenu argent\n"
+        }
+    }
+}

@@ -1,0 +1,164 @@
+{
+    "sample_1": {
+        "input": "## Partie réglementaire - Décrets simples\n\n#### Livre 5 : Prestations familiales et prestations assimilées\n\n##### Titre 2 : Prestations générales d'entretien\n\n###### Chapitre 1er : Allocations familiales\n\n####### Article D521-1|LEGIARTI000030680318\n\nI.-Pour l'application de l'article L. 521-1 , le montant des allocations\nfamiliales et de la majoration pour âge prévue à l'article L. 521-3\nest défini selon le barème suivant :\n\n# Composantes des allocations familiales",
+        "output": "champ d'application AllocationsFamiliales :\ndéfinition montant_initial_base égal à\nmontant_initial_base_deuxième_enfant +\nmontant_initial_base_troisième_enfant_et_plus\n\ndéfinition montant_initial_majoration de enfant égal à\nmontant_initial_métropole_majoration de enfant",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n",
+            "Enfant": "déclaration structure Enfant:\ndonnée identifiant contenu entier\ndonnée obligation_scolaire contenu SituationObligationScolaire\ndonnée rémuneration_mensuelle contenu argent\ndonnée date_de_naissance contenu date\ndonnée prise_en_charge contenu PriseEnCharge\ndonnée a_déjà_ouvert_droit_aux_allocations_familiales contenu booléen\ndonnée bénéficie_titre_personnel_aide_personnelle_logement contenu booléen\ndéclaration structure Enfant:\ndonnée identifiant contenu entier\ndonnée a_renoncé_à_la_succession contenu booléen\ndonnée est_représenté contenu booléen\ndonnée est_tenu_au_rapport_libéralité contenu booléen\n",
+            "PriseEnCharge": "déclaration énumération PriseEnCharge:\n-- GardeAlternéePartageAllocations\n-- GardeAlternéeAllocataireUnique\n-- EffectiveEtPermanente\n-- ServicesSociauxAllocationVerséeÀLaFamille\n-- ServicesSociauxAllocationVerséeAuxServicesSociaux\n",
+            "SituationObligationScolaire": "déclaration énumération SituationObligationScolaire:\n-- Avant\n-- Pendant\n-- Après\ndéclaration énumération SituationObligationScolaire:\n-- Avant\n-- Pendant\n-- Après\n"
+        }
+    },
+    "sample_2": {
+        "input": "1° Lorsque le ménage ou la personne a disposé d'un montant de ressources\ninférieur ou égal au plafond défini au I de l'article D. 521-3, les taux\nservant au calcul des allocations familiales sont fixés, en pourcentage\nde la base mensuelle prévue à l'article L. 551-1, à :\na) 32 % pour le deuxième enfant à charge ;\nb) 41 % pour le troisième enfant à charge et chacun des suivants.",
+        "output": "champ d'application AllocationsFamiliales sous condition\nressources_ménage <= plafond_I_d521_3:\n\nétiquette base\ndéfinition montant_initial_base_deuxième_enfant égal à\nsi nombre de enfants_à_charge_droit_ouvert_prestation_familiale > 1\nalors bmaf.montant * 32 %\nsinon 0 €\n\ndéfinition montant_initial_base_troisième_enfant_et_plus égal à\nsi nombre de enfants_à_charge_droit_ouvert_prestation_familiale > 2\nalors (bmaf.montant * 41 %) * (\ndécimal de\n((nombre de enfants_à_charge_droit_ouvert_prestation_familiale) - 2)\n) sinon 0 €",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n"
+        }
+    },
+    "sample_3": {
+        "input": "La majoration pour âge est fixée à 16 % de la base mensuelle de calcul des\nprestations familiales ;",
+        "output": "champ d'application AllocationsFamiliales sous condition\nressources_ménage <= plafond_I_d521_3:\n\ndéfinition montant_initial_métropole_majoration de enfant\nsous condition\ndroit_ouvert_majoration de enfant\nconséquence égal à\nbmaf.montant * 16 %",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n",
+            "Enfant": "déclaration structure Enfant:\ndonnée identifiant contenu entier\ndonnée obligation_scolaire contenu SituationObligationScolaire\ndonnée rémuneration_mensuelle contenu argent\ndonnée date_de_naissance contenu date\ndonnée prise_en_charge contenu PriseEnCharge\ndonnée a_déjà_ouvert_droit_aux_allocations_familiales contenu booléen\ndonnée bénéficie_titre_personnel_aide_personnelle_logement contenu booléen\ndéclaration structure Enfant:\ndonnée identifiant contenu entier\ndonnée a_renoncé_à_la_succession contenu booléen\ndonnée est_représenté contenu booléen\ndonnée est_tenu_au_rapport_libéralité contenu booléen\n",
+            "PriseEnCharge": "déclaration énumération PriseEnCharge:\n-- GardeAlternéePartageAllocations\n-- GardeAlternéeAllocataireUnique\n-- EffectiveEtPermanente\n-- ServicesSociauxAllocationVerséeÀLaFamille\n-- ServicesSociauxAllocationVerséeAuxServicesSociaux\n",
+            "SituationObligationScolaire": "déclaration énumération SituationObligationScolaire:\n-- Avant\n-- Pendant\n-- Après\ndéclaration énumération SituationObligationScolaire:\n-- Avant\n-- Pendant\n-- Après\n"
+        }
+    },
+    "sample_4": {
+        "input": "2° Lorsque le ménage ou la personne a disposé d'un montant de ressources\nsupérieur au plafond défini au I de l'article D. 521-3 et inférieur ou égal\nà celui défini au II du même article, les taux servant au calcul des\nallocations familiales sont fixés, en pourcentage de la base mensuelle\nprévue à l'article L. 551-1, à :\na) 16 % pour le deuxième enfant à charge ;\nb) 20,5 % pour le troisième enfant à charge et chacun des suivants.",
+        "output": "champ d'application AllocationsFamiliales sous condition\n(ressources_ménage > plafond_I_d521_3) et\n(ressources_ménage <= plafond_II_d521_3):\n\nétiquette base\ndéfinition montant_initial_base_deuxième_enfant égal à\nsi nombre de enfants_à_charge_droit_ouvert_prestation_familiale > 1\nalors bmaf.montant * 16 %\nsinon 0 €\n\ndéfinition montant_initial_base_troisième_enfant_et_plus égal à\nsi nombre de enfants_à_charge_droit_ouvert_prestation_familiale > 2\nalors (bmaf.montant * 20,5 %) * (\ndécimal de\n((nombre de enfants_à_charge_droit_ouvert_prestation_familiale) - 2)\n) sinon 0 €",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n"
+        }
+    },
+    "sample_5": {
+        "input": "La majoration pour âge est fixée à 8 % de la base mensuelle de calcul des\nprestations familiales ;",
+        "output": "champ d'application AllocationsFamiliales sous condition\n(ressources_ménage > plafond_I_d521_3) et\n(ressources_ménage <= plafond_II_d521_3):\n\ndéfinition montant_initial_métropole_majoration de enfant sous condition\ndroit_ouvert_majoration de enfant\nconséquence égal à\nbmaf.montant * 8 %",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n",
+            "Enfant": "déclaration structure Enfant:\ndonnée identifiant contenu entier\ndonnée obligation_scolaire contenu SituationObligationScolaire\ndonnée rémuneration_mensuelle contenu argent\ndonnée date_de_naissance contenu date\ndonnée prise_en_charge contenu PriseEnCharge\ndonnée a_déjà_ouvert_droit_aux_allocations_familiales contenu booléen\ndonnée bénéficie_titre_personnel_aide_personnelle_logement contenu booléen\ndéclaration structure Enfant:\ndonnée identifiant contenu entier\ndonnée a_renoncé_à_la_succession contenu booléen\ndonnée est_représenté contenu booléen\ndonnée est_tenu_au_rapport_libéralité contenu booléen\n",
+            "PriseEnCharge": "déclaration énumération PriseEnCharge:\n-- GardeAlternéePartageAllocations\n-- GardeAlternéeAllocataireUnique\n-- EffectiveEtPermanente\n-- ServicesSociauxAllocationVerséeÀLaFamille\n-- ServicesSociauxAllocationVerséeAuxServicesSociaux\n",
+            "SituationObligationScolaire": "déclaration énumération SituationObligationScolaire:\n-- Avant\n-- Pendant\n-- Après\ndéclaration énumération SituationObligationScolaire:\n-- Avant\n-- Pendant\n-- Après\n"
+        }
+    },
+    "sample_6": {
+        "input": "3° Lorsque le ménage ou la personne a disposé d'un montant de ressources\nsupérieur au plafond défini au II de l'article D. 521-3, les taux servant\nau calcul des allocations familiales sont fixés, en pourcentage de la base\nmensuelle prévue à l'article L. 551-1, à :\na) 8 % pour le deuxième enfant à charge ;\nb) 10,25 % pour le troisième enfant à charge et chacun des suivants.",
+        "output": "champ d'application AllocationsFamiliales sous condition\nressources_ménage > plafond_II_d521_3:\nétiquette base\ndéfinition montant_initial_base_deuxième_enfant égal à\nsi nombre de enfants_à_charge_droit_ouvert_prestation_familiale > 1\nalors bmaf.montant * 8 %\nsinon 0 €\n\ndéfinition montant_initial_base_troisième_enfant_et_plus égal à\nsi nombre de enfants_à_charge_droit_ouvert_prestation_familiale > 2\nalors (bmaf.montant * 10,25 %) * (\ndécimal de\n((nombre de enfants_à_charge_droit_ouvert_prestation_familiale) - 2)\n) sinon 0 €",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n"
+        }
+    },
+    "sample_7": {
+        "input": "La majoration pour âge est fixée à 4 % de la base mensuelle de calcul des\nprestations familiales.",
+        "output": "champ d'application AllocationsFamiliales sous condition\nressources_ménage > plafond_II_d521_3:\n\ndéfinition montant_initial_métropole_majoration de enfant sous condition\ndroit_ouvert_majoration de enfant\nconséquence égal à\nbmaf.montant * 4 %",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n",
+            "Enfant": "déclaration structure Enfant:\ndonnée identifiant contenu entier\ndonnée obligation_scolaire contenu SituationObligationScolaire\ndonnée rémuneration_mensuelle contenu argent\ndonnée date_de_naissance contenu date\ndonnée prise_en_charge contenu PriseEnCharge\ndonnée a_déjà_ouvert_droit_aux_allocations_familiales contenu booléen\ndonnée bénéficie_titre_personnel_aide_personnelle_logement contenu booléen\ndéclaration structure Enfant:\ndonnée identifiant contenu entier\ndonnée a_renoncé_à_la_succession contenu booléen\ndonnée est_représenté contenu booléen\ndonnée est_tenu_au_rapport_libéralité contenu booléen\n",
+            "PriseEnCharge": "déclaration énumération PriseEnCharge:\n-- GardeAlternéePartageAllocations\n-- GardeAlternéeAllocataireUnique\n-- EffectiveEtPermanente\n-- ServicesSociauxAllocationVerséeÀLaFamille\n-- ServicesSociauxAllocationVerséeAuxServicesSociaux\n",
+            "SituationObligationScolaire": "déclaration énumération SituationObligationScolaire:\n-- Avant\n-- Pendant\n-- Après\ndéclaration énumération SituationObligationScolaire:\n-- Avant\n-- Pendant\n-- Après\n"
+        }
+    },
+    "sample_8": {
+        "input": "II.-En application du sixième alinéa de l'article L. 521-1, le montant\nmensuel des allocations familiales et, le cas échéant, de la majoration\npour âge est majoré d'un complément dégressif, lorsque les ressources\nannuelles du ménage ou de la personne dépassent l'un des plafonds défini\nau I ou au II de l'article D. 521-3 d'une somme inférieure à douze fois\nle montant mensuel des allocations familiales augmenté, le cas échéant,\nde la ou des majorations pour âge.\n\nCe complément dégressif est égal, pour chaque mois, au douzième de la\ndifférence entre, d'une part, ce plafond de ressources majoré de la somme\ndéfinie à l'alinéa précédent et, d'autre part, le montant des ressources.\n\n# Attention : cette formule ne marche que si la diminution des\n# allocations se fait d'un facteur 1/2 à chaque passage de plafond de\n# ressources.\n# Dans les autres cas, le dépassement est nul",
+        "output": "champ d'application AllocationsFamiliales :\n\n\nexception\ndéfinition complément_dégressif de allocation\nsous condition\n(ressources_ménage > plafond_I_d521_3) et\n(ressources_ménage <= plafond_I_d521_3 + allocation * 12,0 )\nconséquence égal à\n(plafond_I_d521_3 + allocation * 12,0 - ressources_ménage) *\n(1,0 / 12,0)\n\nexception\ndéfinition complément_dégressif de allocation\nsous condition\n(ressources_ménage > plafond_II_d521_3) et\n(ressources_ménage <= plafond_II_d521_3 + allocation * 12,0)\nconséquence égal à\n(plafond_II_d521_3 + allocation * 12,0 - ressources_ménage) *\n(1,0 / 12,0)\n\ndéfinition complément_dégressif de allocation égal à 0 €\n\ndéfinition montant_versé_complément_pour_base_et_majoration égal à\nsi droit_ouvert_complément alors\n(complément_dégressif de\nmontant_base_complément_pour_base_et_majoration)\nsinon 0 €\n\ndéfinition montant_base_complément_pour_base_et_majoration égal à\nmontant_versé_base + montant_versé_majoration",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n"
+        }
+    },
+    "sample_9": {
+        "input": "####### Article D521-2|LEGIARTI000030680324\n\n# L'allocation forfaitaire totale est la somme de toutes les allocations\n# forfaitaires distribuées à chaque enfant du ménage",
+        "output": "champ d'application AllocationsFamiliales :\ndéfinition montant_versé_forfaitaire égal à\nmontant_versé_forfaitaire_par_enfant *\ndécimal de\nnombre de (liste de enfant parmi enfants_à_charge\ntel que droit_ouvert_forfaitaire de enfant)",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n",
+            "Enfant": "déclaration structure Enfant:\ndonnée identifiant contenu entier\ndonnée obligation_scolaire contenu SituationObligationScolaire\ndonnée rémuneration_mensuelle contenu argent\ndonnée date_de_naissance contenu date\ndonnée prise_en_charge contenu PriseEnCharge\ndonnée a_déjà_ouvert_droit_aux_allocations_familiales contenu booléen\ndonnée bénéficie_titre_personnel_aide_personnelle_logement contenu booléen\ndéclaration structure Enfant:\ndonnée identifiant contenu entier\ndonnée a_renoncé_à_la_succession contenu booléen\ndonnée est_représenté contenu booléen\ndonnée est_tenu_au_rapport_libéralité contenu booléen\n",
+            "PriseEnCharge": "déclaration énumération PriseEnCharge:\n-- GardeAlternéePartageAllocations\n-- GardeAlternéeAllocataireUnique\n-- EffectiveEtPermanente\n-- ServicesSociauxAllocationVerséeÀLaFamille\n-- ServicesSociauxAllocationVerséeAuxServicesSociaux\n",
+            "SituationObligationScolaire": "déclaration énumération SituationObligationScolaire:\n-- Avant\n-- Pendant\n-- Après\ndéclaration énumération SituationObligationScolaire:\n-- Avant\n-- Pendant\n-- Après\n"
+        }
+    },
+    "sample_10": {
+        "input": "I.-Le montant mensuel de l'allocation forfaitaire prévue au deuxième alinéa de\nl'article L. 521-1 est défini selon le barème suivant :\n\n1° Lorsque le ménage ou la personne a disposé d'un montant de ressources\ninférieur ou égal au plafond défini au I de l'article D. 521-3, le montant\nmensuel de l'allocation forfaitaire est fixé à 20,234 % de la base mensuelle\nde calcul des allocations familiales par enfant ;\n\n# TODO Liane: la syntaxe de la phrase est très ambiguë, on a l'impression que\n# c'est la BMAF qui est \"par enfant\" et pas le montant de l'allocation\n# forfaitaire. Erreur de rédaction ? Problème juridique ?",
+        "output": "champ d'application AllocationsFamiliales :\ndéfinition montant_versé_forfaitaire_par_enfant sous condition\nressources_ménage <= plafond_I_d521_3\nconséquence égal à\n(bmaf.montant * 20,234 %)",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n"
+        }
+    },
+    "sample_11": {
+        "input": "2° Lorsque le ménage ou la personne a disposé d'un montant de ressources\nsupérieur au plafond défini au I de l'article D. 521-3 et inférieur ou égal\nà celui défini au II du même article, le montant mensuel de l'allocation\nforfaitaire est fixé à 10,117 % de la base mensuelle de calcul des allocations\nfamiliales par enfant ;",
+        "output": "champ d'application AllocationsFamiliales :\ndéfinition montant_versé_forfaitaire_par_enfant sous condition\n(ressources_ménage > plafond_I_d521_3) et\n(ressources_ménage <= plafond_II_d521_3)\nconséquence égal à\n(bmaf.montant * 10,117 %)",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n"
+        }
+    },
+    "sample_12": {
+        "input": "3° Lorsque le ménage ou la personne a disposé d'un montant de ressources\nsupérieur au plafond défini au II de l'article D. 521-3, le montant mensuel\nde l'allocation forfaitaire est fixé à 5,059 % de la base mensuelle de calcul\ndes allocations familiales par enfant.",
+        "output": "champ d'application AllocationsFamiliales :\ndéfinition montant_versé_forfaitaire_par_enfant sous condition\nressources_ménage > plafond_II_d521_3\nconséquence égal à\n(bmaf.montant * 5,059 %)",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n"
+        }
+    },
+    "sample_13": {
+        "input": "II.-En application du sixième alinéa de l'article L. 521-1, le montant mensuel\nde l'allocation forfaitaire est majoré d'un complément dégressif lorsque les\nressources annuelles du ménage ou de la personne dépassent l'un des plafonds\ndéfini au I ou au II de l'article D. 521-3 d'une somme inférieure à douze fois\nle montant mensuel de l'allocation forfaitaire auquel l'enfant ouvre droit.\nCe complément dégressif est égal, pour chaque mois, au douzième de la différence\nentre, d'une part, ce plafond de ressources majoré de la somme définie à\nl'alinéa précédent et, d'autre part, le montant des ressources.\n\n# Dans les autres cas, le dépassement est nul",
+        "output": "champ d'application AllocationsFamiliales :\nexception\ndéfinition montant_versé_complément_pour_forfaitaire\nsous condition\n(ressources_ménage > plafond_I_d521_3) et\n(ressources_ménage <= plafond_I_d521_3 +\nmontant_versé_forfaitaire * 12,0 )\nconséquence égal à\n(plafond_I_d521_3 + montant_versé_forfaitaire * 12,0\n- ressources_ménage) * (1,0 / 12,0)\n\nexception\ndéfinition montant_versé_complément_pour_forfaitaire\nsous condition\n(ressources_ménage > plafond_II_d521_3) et\n(ressources_ménage <= plafond_II_d521_3 +\nmontant_versé_forfaitaire * 12,0)\nconséquence égal à\n(plafond_II_d521_3 + montant_versé_forfaitaire * 12,0\n- ressources_ménage) * (1,0 / 12,0)\n\ndéfinition montant_versé_complément_pour_forfaitaire égal à 0 €",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n"
+        }
+    },
+    "sample_14": {
+        "input": "III.-Le nombre minimum d'enfants à charge mentionné au deuxième alinéa de\nl'article L. 521-1 est fixé à trois.",
+        "output": "champ d'application AllocationsFamiliales :\ndéfinition nombre_enfants_alinéa_2_l521_1 égal à 3",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n"
+        }
+    },
+    "sample_15": {
+        "input": "####### Article D521-3|LEGIARTI000044809227\n\nI.-Le plafond prévu au 1° du I des articles D. 521-1 et D. 521-2 est fixé à\n55 950 euros. Il est majoré de 5 595 euros par enfant à charge.",
+        "output": "champ d'application AllocationsFamiliales :\ndéfinition plafond_I_d521_3 égal à 55 950 € +\n5 595 € * (décimal de\n(nombre de enfants_à_charge_droit_ouvert_prestation_familiale))",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n"
+        }
+    },
+    "sample_16": {
+        "input": "II.-Le plafond prévu au 2° du I des articles D. 521-1 et D. 521-2 est fixé à\n78 300 euros. Il est majoré de 5 595 euros par enfant à charge.",
+        "output": "champ d'application AllocationsFamiliales :\ndéfinition plafond_II_d521_3 égal à 78 300 € +\n5 595 € * (décimal de\n(nombre de enfants_à_charge_droit_ouvert_prestation_familiale))",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n"
+        }
+    },
+    "sample_17": {
+        "input": "III.-Les montants des plafonds et de leur majoration respective fixés au présent\narticle sont revalorisés au 1er janvier de chaque année, conformément à\nl'évolution en moyenne annuelle des prix à la consommation hors tabac de\nl'année civile de référence.\n\n# Nota : ces montants sont en réalités remis à jour chaque année par des\n# décrets, voir decrets_divers.catala_fr\n\n#### Livre 7 : Régimes divers - Dispositions diverses\n\n##### Titre 5 : Départements d'outre-mer\n\n###### Chapitre 5 : Prestations familiales et prestations assimilées\n\n####### Article D755-5|LEGIARTI000006738575\n\nI.-Les taux servant au calcul des allocations familiales et de la majoration\nprévue à l'article L. 755-11 sont identiques à ceux mentionnés à l'article\nD. 521-1 .\n\n# Pas de changement à déclarer\n\nII.-En application de l'article L. 755-11, 2e alinéa, le taux servant au\ncalcul des allocations familiales servies pour un seul enfant à charge est\nfixé à 5,88 p. 100 de la base mensuelle prévue à l'article L. 755-3 .\n\n# Composantes des allocations familiales\n# Valeur par défaut",
+        "output": "champ d'application AllocationsFamiliales :\n\nexception\ndéfinition montant_initial_base sous condition\nprestations_familiales.régime_outre_mer_l751_1 et\nnombre de enfants_à_charge_droit_ouvert_prestation_familiale = 1\nconséquence égal à\nmontant_initial_base_premier_enfant\n\nétiquette base définition montant_initial_base_premier_enfant égal à 0€\n\nexception base définition montant_initial_base_premier_enfant sous condition\nprestations_familiales.régime_outre_mer_l751_1 et\n(nombre de enfants_à_charge_droit_ouvert_prestation_familiale = 1)\nconséquence égal à\nbmaf.montant * 5,88 %",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n"
+        }
+    },
+    "sample_18": {
+        "input": "La majoration des allocations familiales pour un seul enfant à charge est\nfixée à 3,69 p. 100 de la base mensuelle prévue à l'article L. 755-3 à\npartir de onze ans et à 5,67 p. 100 à partir de seize ans.",
+        "output": "champ d'application AllocationsFamiliales :\nexception définition montant_initial_majoration de enfant\nsous condition\n(droit_ouvert_majoration de enfant) et\nprestations_familiales.régime_outre_mer_l751_1 et\n(nombre de enfants_à_charge_droit_ouvert_prestation_familiale = 1) et\n(enfant.date_de_naissance + 11 an <= date_courante et\nenfant.date_de_naissance + 16 an > date_courante)\nconséquence égal à\nbmaf.montant * 3,69 %\n\nexception définition montant_initial_majoration de enfant\nsous condition\n(droit_ouvert_majoration de enfant) et\nprestations_familiales.régime_outre_mer_l751_1 et\n(nombre de enfants_à_charge_droit_ouvert_prestation_familiale = 1) et\n(enfant.date_de_naissance + 16 an <= date_courante)\nconséquence égal à\nbmaf.montant * 5,67 %",
+        "metadata": {
+            "AllocationsFamiliales": "déclaration champ d'application AllocationsFamiliales:\nentrée personne_charge_effective_permanente_est_parent condition\nentrée personne_charge_effective_permanente_remplit_titre_I condition\nentrée ressources_ménage contenu argent\nentrée résidence contenu France.Collectivité\n",
+            "Collectivité": "déclaration énumération Collectivité:\n-- Guadeloupe\n-- Guyane\n-- Martinique\n-- LaRéunion\n-- SaintBarthélemy\n-- SaintMartin\n-- Métropole\n-- SaintPierreEtMiquelon\n-- Mayotte\n",
+            "Enfant": "déclaration structure Enfant:\ndonnée identifiant contenu entier\ndonnée obligation_scolaire contenu SituationObligationScolaire\ndonnée rémuneration_mensuelle contenu argent\ndonnée date_de_naissance contenu date\ndonnée prise_en_charge contenu PriseEnCharge\ndonnée a_déjà_ouvert_droit_aux_allocations_familiales contenu booléen\ndonnée bénéficie_titre_personnel_aide_personnelle_logement contenu booléen\ndéclaration structure Enfant:\ndonnée identifiant contenu entier\ndonnée a_renoncé_à_la_succession contenu booléen\ndonnée est_représenté contenu booléen\ndonnée est_tenu_au_rapport_libéralité contenu booléen\n",
+            "PriseEnCharge": "déclaration énumération PriseEnCharge:\n-- GardeAlternéePartageAllocations\n-- GardeAlternéeAllocataireUnique\n-- EffectiveEtPermanente\n-- ServicesSociauxAllocationVerséeÀLaFamille\n-- ServicesSociauxAllocationVerséeAuxServicesSociaux\n",
+            "SituationObligationScolaire": "déclaration énumération SituationObligationScolaire:\n-- Avant\n-- Pendant\n-- Après\ndéclaration énumération SituationObligationScolaire:\n-- Avant\n-- Pendant\n-- Après\n"
+        }
+    }
+}
